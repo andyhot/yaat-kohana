@@ -1,0 +1,171 @@
+html, body, #container {width: 100%; height: 100%; overflow: hidden; padding: 0 0 0 0; margin: 0 0 0 0;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+#header h1 { font-size: 2.4em; font-weight: normal; color: #333; float:left; margin-top: 0.5em;
+}
+#header p {background-color:#eee;float:right;margin-right:20px;margin-top: 1em;
+        padding:10px;-moz-border-radius:6px;}
+#header p.info {background-color:#eec; display:block; overflow:hidden; white-space:nowrap;}
+#header p.error {background-color:#ecc; display:block; overflow:hidden; white-space:nowrap;}
+form {padding:0; margin:0;display:inline;}
+hr {color:#eee;}
+a { color: inherit; }
+code { font-size: 1.3em; }
+ul { list-style: none; padding: 0em 0; }
+#menu ul li { padding-right: 1em; font-weight:bold;}
+#menu ul li a { padding: 0.5em 1em;
+        background: #fff;
+        color: #6969aa;
+        text-decoration: none; width:90%; display:block;
+}
+#menu ul li a:hover { background: #6969aa; color: #fff;}
+
+.boxy { margin:1em; padding: 2em; background: #eee; border: 1px solid #666; -moz-border-radius:5px; }
+.boxy h3 {border-bottom:1px solid #333;}
+.copyright { font-size: 0.9em; text-transform: uppercase; color: #333; }
+
+.beanform label, .loginform label {width:100px;text-align:right; float:left;padding:4px;color:#336;}
+.beanform input, .beanform select, .beanform textarea {float:left; width: 30em;}
+.beanform .dijitComboBox {width: 30em;}
+input.int {width: 5em;}
+input.float {width: 8em;}
+input, textarea {border:1px solid #aaa; padding:3px;background-color: transparent}
+input:focus, textarea:focus {background-color:#f3f3ff;}
+input.chkbox, input.radio {width: auto; border:0;}
+.multi select {
+    width:255px;
+    height:300px;
+    overflow:auto;
+}
+div.available, div.selected{float:left;}
+div.leftRightButtons {float:left; padding: 10em 0.5em 0 0.5em;}
+.clr {clear:both;}
+/*.beanform div {clear:both;}*/
+.loginform div {clear:both;}
+.loginform input {float:left;}
+.formbuttons {margin-left:110px;}
+.formbuttons input {margin-right:4px;width: auto;}
+
+.customform .title {padding:4px;color:#336;}
+.customform label {padding:2px; padding-right:12px;}
+
+#menu ul {margin:0;}
+
+#footer {clear:both; text-align:center;}
+#footer p {background-color:#eee;margin:auto;
+        padding:10px;-moz-border-radius:6px;float:none;width:300px;}
+
+div.csv {}
+div.csv div, div.lov div {padding-top:6px;}
+div.csv div label, div.lov div label {width:auto; padding:0; padding-right:8px;}
+div.csv .csvvalues, div.lov .lovvalues {clear:none;}
+
+.error {border:1px solid red;}
+.warning{ color: red; font-weight: bold;}
+
+.required label {font-weight:bold;}
+
+.RichTextEditable {height:120px;}
+/*.beanform div.RichTextEditable {clear:both;}*/
+.dj_ie .beanform div.RichTextEditable {clear:both;}
+.dj_ie #header h1 {padding-top:20px;}
+.tundra .dojoxGrid-row-over .dijitTextBox {color: #000;}
+
+table.datatable {table-layout:fixed; width:95%;}
+
+table.datatable tr {
+	height: 10px;
+        border-bottom:1px solid #ddd;
+}
+
+table.datatable td,table.datatable th {
+	padding: 4px;
+        border-bottom: 1px solid #DDDDDD;
+}
+
+.odd {
+	background-color: #f3f3f3;
+}
+
+.even {
+	background-color: white;
+}
+
+.beanform .odd, .beanform .even {padding:2px;}
+
+table.datatable tr.highlight {
+        background-color: #e0e6fa;
+}
+
+table.datatable tr.selected {
+        background-color: #d6dff7;
+}
+
+.dataview div {padding:3px;border-bottom:1px solid #eee;}
+
+.dataview div label {width: 15em; display:block; float:left; color:#336;}
+
+.viewreport {padding:4px;}
+
+#main_content {padding-bottom: 2em;}
+
+#main_content a, #main_content a:visited {text-decoration:none; color:blue;}
+
+#main_content a:hover {text-decoration:underline;}
+
+.deleteBtn {border:1px solid transparent;
+        background: transparent;
+        padding:0;
+        color:blue;
+        cursor:hand; cursor:pointer;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+    }
+
+.deleteBtn:hover {border-bottom:1px solid blue;}
+
+#main_content p.pagination a {padding: 4px; border:1px solid #ccf; background: white; color:#6969aa;
+        text-decoration:none;}
+
+#main_content p.pagination a:hover {background: #6969aa; color:white;}
+
+.filterpane {clear: both; width: 95%;}
+
+.filter {float:right;}
+
+.selectpane {float:left; line-height:2em;}
+
+.select-everything, .select-everything-true {margin-left:1em;}
+
+.select_cell {width:30px;}
+.info_cell {width:100%; white-space: nowrap;overflow:hidden;}
+.action_cell {text-align:right; width:200px;}
+
+.summary_line {margin-left:1em; color:#999;}
+
+.create-new {background: transparent url(icons/add.png) no-repeat 0 50%; padding-left: 18px;}
+.edit-item {background: transparent url(icons/pencil.png) no-repeat 0 50%; padding-left: 18px;}
+.cancel-item {background: transparent url(icons/cancel.png) no-repeat 1px 50%; padding-left: 18px;}
+.save-item {background: transparent url(icons/database_save.png) no-repeat 1px 50%; padding-left: 18px;}
+.delete-item, .bulk_delete {background: transparent url(icons/delete.png) no-repeat 0 50%; padding-left: 18px;}
+.bulk_categorize {background: transparent url(icons/tag_blue.png) no-repeat 1px 50%; padding-left: 18px;}
+.go-back {background: transparent url(icons/arrow_left.png) no-repeat 0 50%; padding-left: 18px;}
+.filter-items {background: transparent url(icons/magnifier.png) no-repeat 0 50%; padding-left: 18px;}
+
+.ext {background: transparent url(icons/extlink.gif) no-repeat 0 50%; padding-left: 16px}
+
+body.soria .dijitBorderContainer, body.soria .dijitDialog {
+    background-color:white;
+}
+
+#overlay {
+        background:#fff; width:100%; height:100%;
+        position:absolute; top:0; left:0;z-index:99998;
+}
+#overlayLoading {
+	background:#f00; padding:2px;
+	position:fixed; top:65; right:0;
+	z-index:99999; color:white; font-weight:bold;
+}
+
