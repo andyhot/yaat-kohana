@@ -16,6 +16,8 @@ class moreform {
      * @return string
      */
     public static function propEdit($name, &$entity, $label, $prop = array(), $idSuffix = NULL, $extra = "") {
+    	$yaat_config = Kohana::config('yaat');
+    	
     	$value = $entity->$name; 
     	
         $id = $idSuffix ? $name.$idSuffix : $name;
@@ -60,11 +62,17 @@ class moreform {
             }        	
         	$output .= "</div>";
         } else if ($type=='html') {
-            if ($dojo)
-                $output.= "<div ".html::attributes(array('id'=>$id,
-                        'dojoType'=>'dijit.Editor', 'height'=>'', 
-                        'extraPlugins'=>"['formatBlock', 'foreColor', '|', 'createLink', 'insertImage', 'dijit._editor.plugins.AlwaysShowToolbar']")) // viewsource
-                    .' '.$cssClass.">$value</div>";
+            if ($dojo) {
+            	$editor_extraplugins = $yaat_config['app.js.dojo.editor.extraplugins'];
+            	$editor_opts = array('id'=>$id, 'dojoType'=>'dijit.Editor', 'extraPlugins'=>$editor_extraplugins);
+                if ($yaat_config['app.js.dojo.editor.plugins']!==NULL) {
+            		$editor_opts['plugins'] = $yaat_config['app.js.dojo.editor.plugins'];            		
+            	}            	
+            	if ($yaat_config['app.js.dojo.editor.height']!==NULL) {
+            		$editor_opts['height'] = $yaat_config['app.js.dojo.editor.height'];            		
+            	} 
+                $output.= "<div ".html::attributes($editor_opts) . ' ' . $cssClass.">$value</div>";
+            }
             else
                 $output.= form::textarea(array('name'=>$name, 'id'=>$id), $value, $cssClass);
         } else if ($type=='date') {

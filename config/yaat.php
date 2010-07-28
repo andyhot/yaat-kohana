@@ -29,6 +29,21 @@ $config['app.js.dojo.namespaces'] = NULL;
  */
 $config['app.js.dojo.requires'] = NULL;
 
+// set to '' to see if auto-sizing works
+// and include dijit._editor.plugins.AlwaysShowToolbar in extra plugins
+$config['app.js.dojo.editor.height'] = NULL;
+
+/**
+ * Editor default plugins - set to customize
+ * See: http://docs.dojocampus.org/dijit/Editor
+ */
+$config['app.js.dojo.editor.plugins'] = NULL;
+
+/**
+ * Editor extra plugins - add the class to the requires array if needed
+ */
+$config['app.js.dojo.editor.extraplugins'] = "['formatBlock', 'foreColor', '|', 'createLink', 'insertImage']";
+
 /**
  * Extra javascript file to load - added before dojo. For add stuff after dojo,
  * just require it.

@@ -127,9 +127,7 @@
     <div id="footer" dojoType="dojox.layout.ExpandoPane" region="bottom" splitter="true" maxHeight="100"
         title="Copyright &copy;2009 <?php echo $config['app.copyright'];?>" startExpanded="false">
             <p class="copyright">
-                    <a href="?_lang=el" class="full">GR</a> <a href="?_lang=en_US" class="full">EN</a>                    
-                    [<a href="?_tpl=simple" class="full">simple</a>
-                    <a href="?_tpl=ext" class="full">ext</a>]
+                    <a href="?_lang=el" class="full">GR</a> <a href="?_lang=en_US" class="full">EN</a>
                     [<a href="#" class="full switch-bodyclass">claro</a> |
                      <a href="#" class="full switch-bodyclass">soria</a> |
                      <a href="#" class="full switch-bodyclass">tundra</a> |
