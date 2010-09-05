@@ -196,8 +196,13 @@ dsms.base = {
     
     _urlToHash : function(url) {
     	// summary: First element is raw url, second is hash (after # part).
-        var base = url.match(/(.*php).*/)[1];
-        var u = url.match(/.*php([^\\?]*).*/)[1];
+        var hasPhp = url.indexOf('.php')>0;
+        var basePattern = hasPhp ? /(.*php).*/ : /(https?:\/\/.*?)\/.*/;
+        var ctrlPattern = hasPhp ? /.*php([^\\?]*).*/ : /https?:\/\/.*?(\/[^\\?]*).*/;
+        // extract base url
+        var base = url.match(basePattern)[1];
+        // now extract controller, action, params
+        var u = url.match(ctrlPattern)[1];
         var filterMatch = url.match(/\?.*q=(.*)/);
         var filter = filterMatch ? filterMatch[1].split('&')[0] : null;
         base += u;
@@ -211,7 +216,9 @@ dsms.base = {
     },
     
     _hashToUrl : function(hash) {
-    	var base = location.href.match(/(.*php)[^\\?]*.*/)[1];
+        var hasPhp = location.href.indexOf('.php')>0;
+        var base2Pattern = hasPhp ? /(.*php)[^\\?]*.*/ : /(https?:\/\/.*?)\/[^\\?]*.*/;
+        var base = location.href.match(base2Pattern)[1];
     	return base + "/" + hash.split("-").join('/');
     },
 
