@@ -196,6 +196,10 @@ dsms.base = {
     
     _urlToHash : function(url) {
     	// summary: First element is raw url, second is hash (after # part).
+    	if (url.substring(0, 1)=="/") {
+        	// in chrome url can be root relative.
+    		url = location.protocol + "//" + location.host + (location.port ? ':' + location.port : '') + url;
+    	}
         var hasPhp = url.indexOf('.php')>0;
         var basePattern = hasPhp ? /(.*php).*/ : /(https?:\/\/.*?)\/.*/;
         var ctrlPattern = hasPhp ? /.*php([^\\?]*).*/ : /https?:\/\/.*?(\/[^\\?]*).*/;
