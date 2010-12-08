@@ -44,7 +44,7 @@ dsms.base = {
             dojo.connect(ee, "onNormalizedDisplayChanged", function() {
             	var nn = dojo.query('div[class=][style^="height"]', this.domNode)[0];
             	var box = dojo.marginBox(this.iframe);
-            	if (box.h!=dojo.style(nn, "height")) {
+            	if (nn && box.h!=dojo.style(nn, "height")) {
             		dojo.style(nn, "height", "auto");
             	}
             });
