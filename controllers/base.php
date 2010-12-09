@@ -726,7 +726,8 @@ class Base_Controller extends Template_Controller {
                         $display = '<a href="'.$img_path.'" target="_blank" class="img-preview"><img height="75" src="'.$img_path.'" class="noasync" /></a> '.$display;
                     }
                 } else if ($type=='lov') {
-                	$display = Kohana::lang('model.lov-'.$display);
+                	$lov_prefix = array_key_exists('prefix', $value) ? $value['prefix'] : '';
+                	$display = Kohana::lang('model.lov-'.$lov_prefix.$display);
                 } else if ($type=='password') {
                 	$display = '<span title="'.html::specialchars($display).'">***</span>';                	
                 } else if ($type=='html') {

@@ -52,11 +52,12 @@ class moreform {
             $ext = $prop['ext'];
         	$output .= '<div class="lovvalues">';
         	$first = true;
+        	$lov_prefix = array_key_exists('prefix', $prop) ? $prop['prefix'] : '';
             foreach($ext as $item) {
                 $this_id = $id."_".$item;
                 $output.=form::radio(array('name'=>$name, 'id'=>$this_id, 'class'=>'radio'), $item, 
                 	($value == $item) || ($first && $value=='') );
-                $output.=form::label($this_id, Kohana::lang('model.lov-'.$item));
+                $output.=form::label($this_id, Kohana::lang('model.lov-'.$lov_prefix.$item));
                 //$output.='['.$item.']';
                 $first = false;
             }        	

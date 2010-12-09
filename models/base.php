@@ -33,9 +33,17 @@ abstract class Base_Model extends ORM {
         
         if (property_exists($this, 'lov_valued')) {
             foreach ($this->lov_valued as $lov) {
-                $vals = $lov."_vals";
+                $vals = $lov.'_vals';
                 $props[$lov]['type'] = 'lov';
                 $props[$lov]['ext'] = $this->$vals;
+                
+                $vals_prefix = $vals.'_prefix';
+                if (property_exists($this, $vals_prefix)) {
+                	$props[$lov]['prefix'] = $this->$vals_prefix;
+                } else if (is_array($props[$lov]['ext']) 
+                	&& in_array($props[$lov]['ext'][0], array('0', '1')) ) {
+                	$props[$lov]['prefix'] = $lov.'_';
+                }
             }
         }        
 
