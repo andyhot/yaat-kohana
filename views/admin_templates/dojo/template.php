@@ -1,40 +1,40 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <?php defined('SYSPATH') OR die('No direct access allowed.');
+	$all_themes = array('claro', 'tundra', 'soria', 'nihilo');
+
 	$config  = Kohana::config('yaat');
     $js_root_path = $config['app.js.dojo'];
     $js_xdomain = $config['app.js.dojo.xdomain'];
     $js_namespaces = $config['app.js.dojo.namespaces'];
     $js_requires = $config['app.js.dojo.requires'];
-    $js_theme = $config['app.js.dojo.theme'];
+    $js_theme = $config['app.js.dojo.theme'];    
+    if (in_array($js_theme, $all_themes)) {
+    	$js_theme = $all_themes[0];	
+    }
+    
     $js_extra = $config['app.js.extra'];
+    if ($js_extra && !is_array($js_extra)) {
+    	$js_extra = array($js_extra);
+    }
     $css_extra = $config['app.css.extra'];
+    if ($css_extra && !is_array($css_extra)) {
+    	$css_extra = array($css_extra);
+    }
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title><?php echo $config['app.name']?> | <?php echo html::specialchars($title) ?></title>
-    <link media="screen" rel="stylesheet" type="text/css" 
-        href="<?php echo $js_root_path ?>/dojo/resources/dojo.css" />
-    <link media="screen" rel="stylesheet" type="text/css" 
-        href="<?php echo $js_root_path ?>/dijit/themes/dijit.css" />
-    <?php if ($js_theme=='claro'){?><link media="screen" rel="stylesheet" type="text/css"
-        href="<?php echo $js_root_path ?>/dijit/themes/claro/claro.css" /><?php }?>        
-    <link media="screen" rel="stylesheet" type="text/css"
-        href="<?php echo $js_root_path ?>/dijit/themes/tundra/tundra.css" />
-    <link media="screen" rel="stylesheet" type="text/css"
-        href="<?php echo $js_root_path ?>/dijit/themes/soria/soria.css" />
-    <link media="screen" rel="stylesheet" type="text/css"
-        href="<?php echo $js_root_path ?>/dijit/themes/nihilo/nihilo.css" />
-    <link media="screen" rel="stylesheet" type="text/css"
-        href="<?php echo $js_root_path ?>/dojox/grid/resources/tundraGrid.css" />
-    <link media="screen" rel="stylesheet" type="text/css"
-        href="<?php echo $js_root_path ?>/dojox/layout/resources/ExpandoPane.css" />
-    <link media="screen" rel="stylesheet" type="text/css"
-        href="<?php echo $js_root_path ?>/dojox/layout/resources/ResizeHandle.css" />
-    <link type="text/css" rel="stylesheet" href="<?php echo url::base(TRUE).'yaat/css/main_dojo.css'?>" />
-    <?php if ($css_extra){?><link type="text/css" rel="stylesheet" href="<?php echo $css_extra ?>" /><?php }?>
+    <link media="screen" rel="stylesheet" type="text/css" href="<?php echo $js_root_path ?>/dojo/resources/dojo.css" />
+    <link media="screen" rel="stylesheet" type="text/css" href="<?php echo $js_root_path ?>/dijit/themes/dijit.css" />
+    <link media="screen" rel="stylesheet" type="text/css" href="<?php echo "$js_root_path/dijit/themes/$js_theme/$js_theme.css"?>" />
+    <link media="screen" rel="stylesheet" type="text/css" href="<?php echo $js_root_path ?>/dojox/layout/resources/ExpandoPane.css" />
+    <link media="screen" rel="stylesheet" type="text/css" href="<?php echo $js_root_path ?>/dojox/layout/resources/ResizeHandle.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo url::base(TRUE).'yaat/css/main_dojo.css'?>" />
+    <?php if ($css_extra) foreach($css_extra as $css_one){?><link rel="stylesheet" type="text/css" href="<?php echo $css_one ?>" />
+    <?php }?>
 
-    <?php if ($js_extra){?><script type="text/javascript" src="<?php echo $js_extra ?>"></script><?php }?>
+    <?php if ($js_extra) foreach($js_extra as $js_one){?><script type="text/javascript" src="<?php echo $js_one ?>"></script><?php }?>
     <script type="text/javascript">
         djConfig = {
             parseOnLoad: false,
