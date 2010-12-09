@@ -723,7 +723,7 @@ class Base_Controller extends Template_Controller {
                     if (trim($display)=="") $display = "-";
                     else {
                         $img_path = url::base(FALSE).'files/'.$display;
-                        $display = '<a href="'.$img_path.'" target="_blank" class="img-preview"><img height="75" src="'.$img_path.'" /></a> '.$display;
+                        $display = '<a href="'.$img_path.'" target="_blank" class="img-preview"><img height="75" src="'.$img_path.'" class="noasync" /></a> '.$display;
                     }
                 } else if ($type=='lov') {
                 	$display = Kohana::lang('model.lov-'.$display);

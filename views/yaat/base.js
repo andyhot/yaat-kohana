@@ -113,7 +113,7 @@ dsms.base = {
         var isDirect = dojo.isString(e);
         var isForm = !isDirect && e.target.tagName.toLowerCase()=='form';
         var href = isDirect ? e : isForm ? e.target.action : e.target.href;
-        if (href.indexOf('logout')>=0 || (!isDirect && dojo.hasClass(e.target, 'noasync'))) return;
+        if ((href && href.indexOf('logout')>=0) || (!isDirect && dojo.hasClass(e.target, 'noasync'))) return;
 
         if (!isDirect && !extraContent)
             dojo.stopEvent(e);
