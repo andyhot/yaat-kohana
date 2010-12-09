@@ -8,7 +8,7 @@
     $js_namespaces = $config['app.js.dojo.namespaces'];
     $js_requires = $config['app.js.dojo.requires'];
     $js_theme = $config['app.js.dojo.theme'];    
-    if (in_array($js_theme, $all_themes)) {
+    if (!in_array($js_theme, $all_themes)) {
     	$js_theme = $all_themes[0];	
     }
     
