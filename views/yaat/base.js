@@ -413,18 +413,7 @@ dsms.base = {
         		moveUp(right);
         	} else {
         		moveDown(right);
-        	}
-            
-        });
-
-        dojo.query("input[name='bulk_categorize']", node).onclick(function(e){
-            dojo.stopEvent(e);
-            var triggerControl = e.target;
-
-            dsms.base.showCategoriesDialog(function(item) {
-                dsms.base.loadInContent({target:triggerControl.form}, true,
-                    {category:item.id[0]} );
-            });
+        	}            
         });
 
         dojo.query("input.back", node).onclick(function(e){
@@ -440,9 +429,13 @@ dsms.base = {
             var dlg = new dijit.Dialog({title:title, content:'<img src="' + this.href + '"/>'});
             dlg.show();
         });
+        
+        if (this._pageCallback && this._pageCallback['init']) {
+        	this._pageCallback['init'](node);
+        }
 
         if (this._controller && this._pageCallback && this._pageCallback['init_'+this._controller]) {
-        	this._pageCallback['init_'+this._controller]();
+        	this._pageCallback['init_'+this._controller](node);
         }
     },
     
@@ -603,38 +596,15 @@ dsms.base = {
         dojo.query('.selectpane input').attr('disabled', !found);
     },
 
-    showCategoriesDialog : function(/*Function*/fn) {
-        // summary: Shows a category selection dialog - will call the callback function
-        //      only if there was a selection.
-    	var msgs = dsms.nls.ui.get();
-        var url = location.href.substring(0, location.href.indexOf('admin')+5) + "/categories/index?q=&json";
-        var html = [];
-        if (!window['categoriesStore'])
-            html.push('<div dojoType="dojo.data.ItemFileReadStore" jsId="categoriesStore" url="' + url + '"></div>');
-        html.push('<select dojoType="dijit.form.FilteringSelect" store="categoriesStore" '); 
-        html.push('searchAttr="title" autocomplete="true" pageSize="15" class="bigSelect">');
-        html.push('</select>');
-        html.push('<br />');
-        html.push('<button dojoType="dijit.form.Button">');
-        html.push(msgs.chooseCategory);
-        html.push('</button>');
-        var dlg = new dijit.Dialog({title:msgs.selectCategory, content:html.join('')});
-        dlg.show();
-
-        var newWidgets = dijit.findWidgets(dlg.domNode);
-        var selectWidget = newWidgets[0];
-        var btnWidget = newWidgets[1]; 
-        
-        dojo.connect( btnWidget, 'onClick', function() {
-            var categoryItem = selectWidget.item;
-            
-            dlg.hide();
-            dlg.destroyRecursive();
-
-            if (!categoryItem) return;
-
-            fn(categoryItem);
-        } );
+    updateFilterString : function(/*string*/filter, /*string*/key, /*string*/val) {
+    	var fullKey = key + ':';
+    	var pos = filter.indexOf(fullKey);
+        if (pos>=0) {
+        	filter = filter.substring(0, pos) + fullKey + val;
+        } else {
+        	filter = filter + (filter.length>0?' ':'') + fullKey + val;
+        }
+        return filter;
     },
 
     onLoad : function() {        
