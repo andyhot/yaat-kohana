@@ -90,12 +90,25 @@ class Base_Controller extends Template_Controller {
             return $view;
         }
 
-        protected function create_filter_button() {
+        protected function create_filter_button($contr = NULL) {
+        	$class = '';
+        	if ($contr!=NULL) {
+				$model = $this->toModel($contr);
+				$modelInstance = new $model();
+				$prefixes = $modelInstance->get_search_prefixes();
+				if (count($prefixes)>0) {
+					$class = ' class="filter-additional';
+					foreach ($prefixes as $prefix) {
+						$class .= ' filter-by-'.$prefix;
+					}
+					$class .= '"';
+				}
+        	}
         	if ($this->theme=='dojo') {			
-            	return '<input style="display:none" class="filter-by-cat" type="button" value="+" title="'.Kohana::lang('model.tooltip-extrafilter').'"/> '
+            	return ($class=='' ? '' : '<input'.$class.' type="button" value="+" title="'.Kohana::lang('model.tooltip-extrafilter').'"/> ')
                 	.'<button type="submit" dojoType="dijit.form.Button">'.Kohana::lang('model.action-filter').'</button>';
         	} else {
-            	return '<input style="display:none" class="filter-by-cat" type="button" value="+" title="'.Kohana::lang('model.tooltip-extrafilter').'"/> '
+            	return ($class=='' ? '' : '<input'.$class.' type="button" value="+" title="'.Kohana::lang('model.tooltip-extrafilter').'"/> ')
                 	.'<input type="submit" value="'.Kohana::lang('model.action-filter').'" />';        	
         	}        	
         }
@@ -254,7 +267,7 @@ class Base_Controller extends Template_Controller {
             
             $model = $this->toModel($contr);
             
-            $modelInstance = new $model();//$this->output($modelInstance->getProps());
+            $modelInstance = new $model();
             $modelInstance->orderby_search();
                         
             $is_search = array_key_exists('q', $_GET);
@@ -948,7 +961,7 @@ class Base_Controller extends Template_Controller {
             $output .= '<div class="filter">';
             $output .= form::open($prefix.$contr, array('method'=>'get'));
             $output .= form::input(array('name'=>'q', 'id'=>'search_'.$contr), $search, 'class="filter-items"');
-            $output .= $this->create_filter_button();
+            $output .= $this->create_filter_button($contr);
             $output .= form::close();
             $output .= '</div>';
             $output .= '<div class="clr"></div>';

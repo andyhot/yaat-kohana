@@ -103,6 +103,15 @@ abstract class Base_Model extends ORM {
     public function get_search_column() {
         return 'description';
     }
+    
+    /**
+     * Defines the prefixes that will be handled by the filtering process.
+     * Stuff like is, has, cat so that we can understand a filter such as
+     * is:on or has:attachment
+     */
+    public function get_search_prefixes() {
+        return array();
+    }
 
     protected function parse_search_terms($filter, $prefixes) {        
         $curr = 0;
