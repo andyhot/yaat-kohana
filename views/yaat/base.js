@@ -358,6 +358,8 @@ dsms.base = {
             dojo.stopEvent(e);
             
             var ctrl = e.target;
+            var parentDiv = ctrl.parentNode.parentNode.parentNode;
+            var allowMulti = dojo.hasClass(parentDiv, 'multiselection');
             var parts = ctrl.id.split('_');
             var type = parts[0];
             var id = parts[1];
@@ -365,11 +367,23 @@ dsms.base = {
             var left = dijit.byId('avail_'+id);
             var right = dijit.byId('sel_'+id);
 
-            if (type=='switchleft') {
-                left.addSelected(right);
+            if (allowMulti) {
+	            if (type=='switchleft') {
+	            	right.getSelected().forEach(function(n){
+	                	dojo.destroy(n);
+	            	});
+	            } else {	                
+	                left.getSelected().forEach(function(n){
+	                	this.containerNode.appendChild(dojo.clone(n));
+	            	},right);
+	            }
             } else {
-                right.addSelected(left);
-            }            
+	            if (type=='switchleft') {
+	                left.addSelected(right);
+	            } else {
+	                right.addSelected(left);
+	            }       
+            }
         });
         
         dojo.query('.multi button.mover', node).onclick(function(e){

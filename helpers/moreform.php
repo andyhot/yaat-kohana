@@ -119,7 +119,8 @@ class moreform {
         return form::submit(array('name'=>$name, 'id'=>$id), $value, $extra);
     }    
     
-    public static function prop_multilist($entity, $relation, $values = NULL, $id = NULL, $url = NULL) {
+    public static function prop_multilist($entity, $relation, $values = NULL, $id = NULL, 
+    	$url = NULL, $multi_selection = FALSE) {
         if (!$values &&  !is_array($values))
         	$values = $entity->$relation;
         if (!$id)
@@ -130,7 +131,7 @@ class moreform {
         	$relation = $relation['name'];        	
         }
         		
-        $output = '<div class="multi">';
+        $output = '<div class="multi'.($multi_selection?' multiselection':'').'">';
         $output .= form::open($url, array('class'=>'customform'));
         $hiddens = array('id' => $id, '_model' => $relation);
         $output .= moreform::propHiddens($hiddens);
@@ -156,7 +157,12 @@ class moreform {
 
         $selected = array();
         foreach ($values as $value) {
-            $selected[$value->id] = $value->toDisplay();
+        	$this_inner_key = $value->id;
+        	if (array_key_exists($this_inner_key, $selected)) {
+        		$this_inner_key = $this_inner_key.'_'.rand(0, 99999);
+        	}
+        	
+            $selected[$this_inner_key] = $value->toDisplay();
         }
         $output.= '<div class="selected">';
         $output.= '<label>'.Kohana::lang('model.multi-selected').'</label><br>';
