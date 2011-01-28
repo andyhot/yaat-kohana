@@ -1,6 +1,6 @@
 YAAT
 
-Yet Another Admin Tool (for KohanaPHP)
+Yet Another Admin Tool (for KohanaPHP 2.*)
 
 Automatically generates administrator pages based on models
 found in your application. Uses dojo 1.5
