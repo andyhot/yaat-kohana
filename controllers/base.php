@@ -169,7 +169,12 @@ class Base_Controller extends Template_Controller {
             }
             if (array_key_exists($lang_var, $_SESSION)) {
                 Kohana::config_set('locale.language.0', $_SESSION[$lang_var]);
+            } else {
+            	$yaat_config = Kohana::config('yaat');
+            	if (isset($yaat_config['app.lang']))
+            		Kohana::config_set('locale.language.0', $yaat_config['app.lang']);
             }
+            
             if (array_key_exists($firephp_var, $_SESSION)) {
                 Kohana::config_set('debug_toolbar.firephp_enabled', $_SESSION[$firephp_var]);
             }
