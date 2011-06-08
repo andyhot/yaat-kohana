@@ -10,7 +10,7 @@ abstract class Base_Model extends ORM {
      * The properties of this model - either editable or viewable (pass FALSE).
      * Looks for arrays: csv_valued, boolean_valued, foreign_valued, readonly_valued.
      *
-     * NOTE: Results can be cached (per class) since they are invariable. Cache
+     * TODO: Results can be cached (per class) since they are invariable. Cache
      * them in production only!
      */
     public function getProps($editable=TRUE) {
@@ -99,9 +99,9 @@ abstract class Base_Model extends ORM {
         return $props;
     }
 
-    // TODO: perhaps set and reuse primary_val here
     public function get_search_column() {
-        return 'description';
+    	$keys = array_keys($this->getProps());
+    	return $keys[0]; //'description';
     }
     
     /**
