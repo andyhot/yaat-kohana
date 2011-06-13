@@ -16,7 +16,7 @@ dojo.declare("dsms.widgets.FilteringSelect", dijit.form.FilteringSelect, {
 	postCreate: function(){
 		this.inherited(arguments);
 		
-		//this.attr('displayedValue', this.initDisplayValue); // causes server round-trip
+		this.attr('displayedValue', this.initDisplayValue); // causes server round-trip
 		dijit.form.ValidationTextBox.prototype._setValueAttr.call(this, this.initValue, null, this.initDisplayValue);
 	},
 	

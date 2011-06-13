@@ -611,10 +611,22 @@ dsms.base = {
     },
 
     updateFilterString : function(/*string*/filter, /*string*/key, /*string*/val) {
+		if (!key || !val) return filter;
     	var fullKey = key + ':';
     	var pos = filter.indexOf(fullKey);
         if (pos>=0) {
-        	filter = filter.substring(0, pos) + fullKey + val;
+			var nextPos = filter.indexOf(':', pos + fullKey.length);
+			if (nextPos>0) {
+				var spacePos = filter.indexOf(' ', pos + fullKey.length);
+				if (spacePos>=0 && spacePos<nextPos) {
+					filter = filter.substring(0, pos) + fullKey + val 
+						+ filter.substring(spacePos);
+				} else {
+					filter = filter.substring(0, pos) + fullKey + val;
+				}
+			} else {
+				filter = filter.substring(0, pos) + fullKey + val;
+			}        	
         } else {
         	filter = filter + (filter.length>0?' ':'') + fullKey + val;
         }
