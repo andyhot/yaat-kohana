@@ -12,6 +12,10 @@ $config['app.ver'] = '0.85';
 
 $config['app.copyright'] = 'Andreas Andreou';
 
+// The default language for the admin interface. Only set if it differs from
+// the one set at config/local.php 
+//$config['app.lang'] = 'el';
+
 /**
  * Javascript related
  */
