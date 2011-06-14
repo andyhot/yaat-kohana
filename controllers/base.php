@@ -599,8 +599,7 @@ class Base_Controller extends Template_Controller {
 
             $prefix = $this->admin_path;
             $this->redirect($prefix.$contr);
-        }
-        
+        }        
 
 	    protected function bulk_enable($selection) {
 	        $contr = $this->myName();
@@ -634,7 +633,41 @@ class Base_Controller extends Template_Controller {
 	        
 	        // TODO: ideally redirect to originating page
         	$this->redirect($this->admin_path.'/'.$contr);
-    	}        
+    	}
+		
+		protected function bulk_disable($selection) {
+	        $contr = $this->myName();
+	        $l10n_key = inflector::singular($contr);
+	        
+	        $message = '';                
+	
+	        $data = array('disabled' => true);
+	        $model = $this->toModel($contr);
+	
+	        if (array_key_exists('all', $selection)) {
+	            $filter = $selection['all'];
+	            if (strlen($filter)==0) {
+	                $entity = new $model();
+	                $entity->update_all($data);
+	                $message = Kohana::lang('model.bulk-disable-all-'.$l10n_key);
+	            } else {
+	                $entity = new $model();
+	                $entity->build_filter($filter)->update_all($data);
+	                $message = Kohana::lang('model.bulk-disable-filter-'.$l10n_key, $filter);
+	            }
+	        } else {
+	            $items = $selection['items'];
+	            $entity = new $model();
+	            $entity->update_all($data, $items);
+	            $message = Kohana::lang('model.bulk-disable-some-'.$l10n_key, count($items));
+	        }
+	
+	        $session = Session::instance();
+	        $session->set_flash('info', $message.' ');
+	        
+	        // TODO: ideally redirect to originating page
+        	$this->redirect($this->admin_path.'/'.$contr);
+    	}
 
         /**
          * Return a hash of the selection for this controller,
