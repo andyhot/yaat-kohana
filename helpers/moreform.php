@@ -130,6 +130,8 @@ class moreform {
         	$data = $relation['data'];
         	$relation = $relation['name'];        	
         }
+		
+		$htmlid = $id.$relation;
         		
         $output = '<div class="multi'.($multi_selection?' multiselection':'').'">';
         $output .= form::open($url, array('class'=>'customform'));
@@ -144,15 +146,15 @@ class moreform {
         
         $output.= '<div class="available">';
         $output.= '<label>'.Kohana::lang('model.multi-available').'</label><br>';
-        $output.= form::dropdown(array('id'=>"avail_$id", 'dojoType'=>'dijit.form.MultiSelect',
+        $output.= form::dropdown(array('id'=>"avail_$htmlid", 'dojoType'=>'dijit.form.MultiSelect',
             'required'=>'false', 'autocomplete'=>'false', 'multiple'=>'true'), $data);
         $output .= "</div>";
 
         $output .= '<div class="leftRightButtons">';
-        $output .= '<button id="switchleft_'.$id.'" class="switch" title="'.Kohana::lang('model.multi-remove').'">&lt;</button>';
-        $output .= '<button id="switchright_'.$id.'" class="switch" title="'.Kohana::lang('model.multi-add').'">&gt;</button>';
-        $output .= '<br><br><button id="moveup_'.$id.'" class="mover" title="'.Kohana::lang('model.multi-moveup').'">'.Kohana::lang('model.multi-up').'</button><br>';
-        $output .= '<button id="movedown_'.$id.'" class="mover" title="'.Kohana::lang('model.multi-movedown').'">'.Kohana::lang('model.multi-down').'</button>';
+        $output .= '<button id="switchleft_'.$htmlid.'" class="switch" title="'.Kohana::lang('model.multi-remove').'">&lt;</button>';
+        $output .= '<button id="switchright_'.$htmlid.'" class="switch" title="'.Kohana::lang('model.multi-add').'">&gt;</button>';
+        $output .= '<br><br><button id="moveup_'.$htmlid.'" class="mover" title="'.Kohana::lang('model.multi-moveup').'">'.Kohana::lang('model.multi-up').'</button><br>';
+        $output .= '<button id="movedown_'.$htmlid.'" class="mover" title="'.Kohana::lang('model.multi-movedown').'">'.Kohana::lang('model.multi-down').'</button>';
         $output .= '</div>';
 
         $selected = array();
@@ -166,7 +168,7 @@ class moreform {
         }
         $output.= '<div class="selected">';
         $output.= '<label>'.Kohana::lang('model.multi-selected').'</label><br>';
-        $output.= form::dropdown(array('name'=>'selected[]', 'id'=>"sel_$id", 'dojoType'=>'dijit.form.MultiSelect',
+        $output.= form::dropdown(array('name'=>'selected[]', 'id'=>"sel_$htmlid", 'dojoType'=>'dijit.form.MultiSelect',
             'required'=>'false', 'autocomplete'=>'false', 'multiple'=>'true', 'class'=>'select-all-on-submit'), $selected);
         $output .= "</div>";
 
