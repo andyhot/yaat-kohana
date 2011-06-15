@@ -108,6 +108,12 @@ dsms.base = {
             dsms.base.loadInContent(e, false, {}, loadOverride);
         }
     },
+	
+	showLastError : function() {
+		var cnt = dsms.base['_errArgs'] ? dsms.base['_errArgs'].xhr.responseText : 'No errors found!';
+		var dialog = new dijit.Dialog({title : 'Last Error', content : cnt});
+		dialog.show();
+	},
 
     loadInContent : function(e, skipHistory, extraContent, loadOverride) {
         var isDirect = dojo.isString(e);
@@ -172,8 +178,9 @@ dsms.base = {
                 dsms.base.hideLoading();
                 return response;
             },
-            error: function(){
+            error: function(err, ioargs){
                 if (console && console.debug) console.debug(arguments);
+				dsms.base['_errArgs'] = ioargs;
                 dsms.base.hideLoading();
                 dsms.base.addFlashNews("Error", true);                
             }

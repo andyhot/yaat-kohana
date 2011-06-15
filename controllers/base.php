@@ -989,7 +989,9 @@ class Base_Controller extends Template_Controller {
                 $output .= "<input type=\"hidden\" name=\"_submit\" value=\"dummy\" />";
                 foreach ($this->bulk_actions as $action) {
                     $action_label = Kohana::lang('model.bulk-'.$action);
-                    $output .= " <input type=\"submit\" name=\"bulk_$action\" class=\"bulk_$action\" value=\"$action_label\" />";
+					$extraAttr = ($action=='delete') ? 'onclick="'.$this->jsConfirm().'" ' : '';
+					
+                    $output .= " <input type=\"submit\" name=\"bulk_$action\" class=\"bulk_$action\" value=\"$action_label\" $extraAttr/>";
                 }
                 $output .= form::close();
 
@@ -1020,7 +1022,6 @@ class Base_Controller extends Template_Controller {
                 if ($this->allow_edit) {
                     $output .= "<td class=\"action_cell\">";
                     $output .= morehtml::anchor_l10n($prefix.$contr.'/edit/'.$id, 'model.action-edit', array('class'=>'edit-item'))
-                        //." | ".morehtml::anchor_l10n($prefix.$contr.'/delete/'.$id, 'model.action-delete')
                         ." | ".moreform::formWithSubmit($prefix.$contr.'/delete/'.$id,
                         array('name'=>'submit', 'id'=>'submit'.$id, 'class'=>'deleteBtn delete-item'),
                         Kohana::lang('model.action-delete'),
