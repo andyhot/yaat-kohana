@@ -144,6 +144,7 @@ table.datatable tr.selected {
 .action_cell {text-align:right; width:200px;}
 
 .summary_line {margin-left:1em; color:#999;}
+#main_content .summary_line a {font-weight:bold; color:#99f;}
 
 .create-new {background: transparent url(icons/add.png) no-repeat 0 50%; padding-left: 18px;}
 .edit-item {background: transparent url(icons/pencil.png) no-repeat 0 50%; padding-left: 18px;}
