@@ -179,6 +179,7 @@ abstract class Base_Model extends ORM {
      * Populates model properties from an array.
      * @param array $values Array with data.
      * @param string $prefix Prefix for array keys (defaults to empty).
+	 * @param object $ext_values Files submitted.
      */
     public function populate($values, $prefix = '', $ext_values = NULL) {
         foreach ($this->getProps() as $key => $val) {
@@ -205,7 +206,7 @@ abstract class Base_Model extends ORM {
                 if ($val['type'] == 'image' && $ext_values && array_key_exists($index, $ext_values)) {
                     $file_data = $ext_values[$index];
 
-                    if(eregi('image/', $file_data['type'])) {
+                    if(preg_match('/image\//i', $file_data['type'])) {					
 
                         $random_dir = ''.rand(0, 7).'/';
                         $uploaddir = getcwd().'/files/'.$random_dir;
