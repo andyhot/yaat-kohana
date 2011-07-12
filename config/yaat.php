@@ -58,3 +58,6 @@ $config['app.js.extra'] = NULL;
  * Css related
  */
 $config['app.css.extra'] = NULL;
+
+$config['summary-in-related'] = true;
+$config['records_per_page'] = 15;

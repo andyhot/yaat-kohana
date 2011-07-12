@@ -1,13 +1,12 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.');
 /**
  * Base controller for yaat.
- * TODO: move override options to config
  */
 class Base_Controller extends Template_Controller {
     
     var $name;
     var $authlite;
-    var $record_limit = 15;
+    var $records_per_page;
 
 	// Set the name of the template to use
 	public $template = 'admin_templates/dojo/template';
@@ -27,10 +26,14 @@ class Base_Controller extends Template_Controller {
         protected $theme = 'dojo';
         protected $bulk_actions = array('delete');
 
-	public function __construct()
-	{
-            parent::__construct();            
-        }
+		public function __construct()
+		{
+			parent::__construct();
+
+            $yaat_config = Kohana::config('yaat');
+            $this->records_per_page = isset($yaat_config['records_per_page']) ? 
+				$yaat_config['records_per_page'] : 15;
+	    }
 
         protected function hasBulkActions() {
             return count($this->bulk_actions) > 0;
@@ -278,7 +281,7 @@ class Base_Controller extends Template_Controller {
             $is_search = array_key_exists('q', $_GET);
             $is_paging = array_key_exists('start', $_GET) || array_key_exists('count', $_GET);
             
-            $limit = array_key_exists('count', $_GET) ? $_GET['count'] : $this->record_limit;
+            $limit = array_key_exists('count', $_GET) ? $_GET['count'] : $this->records_per_page;
             if ($limit<1) $limit=1;
             
             if ($is_paging && array_key_exists('start', $_GET)) {
@@ -755,6 +758,8 @@ class Base_Controller extends Template_Controller {
             }
             $oddeven = true;
             if (!$view_props) $view_props = $item->getProps(FALSE);
+            $yaat_config = Kohana::config('yaat');
+            $show_fk_details = isset($yaat_config['summary-in-related']) && $yaat_config['summary-in-related'];
             foreach ($view_props as $key => $value) {
                 if ($key==$fk) continue;
                 $display = $item->$key;
@@ -767,6 +772,7 @@ class Base_Controller extends Template_Controller {
                     if ($rel->id) {
                         $ctrl = inflector::plural($foreign);
                         $display = html::anchor($prefix.$ctrl."/view/".$display, $rel->toDisplay());
+						if ($show_fk_details) $display .= ' ' . $rel->toSummaryDisplay();
                     } else {
                         $display = " - ";
                     }
