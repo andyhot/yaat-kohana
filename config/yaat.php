@@ -61,3 +61,4 @@ $config['app.css.extra'] = NULL;
 
 $config['summary-in-related'] = true;
 $config['records_per_page'] = 15;
+$config['add-view-class'] = true;

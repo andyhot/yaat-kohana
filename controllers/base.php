@@ -760,6 +760,7 @@ class Base_Controller extends Template_Controller {
             if (!$view_props) $view_props = $item->getProps(FALSE);
             $yaat_config = Kohana::config('yaat');
             $show_fk_details = isset($yaat_config['summary-in-related']) && $yaat_config['summary-in-related'];
+			$add_view_class = isset($yaat_config['add-view-class']) && $yaat_config['add-view-class'];
             foreach ($view_props as $key => $value) {
                 if ($key==$fk) continue;
                 $display = $item->$key;
@@ -794,7 +795,11 @@ class Base_Controller extends Template_Controller {
                 	$display = html::specialchars($display);
                 }
                 if (trim($display)=="") $display = "&nbsp;";
-                $output .= "<div class=\"".($oddeven?"odd":"even")."\"><label>".Kohana::lang('model.label-'.$key)."</label> ".$display."</div>";
+				$classAttr = $oddeven?"odd":"even";
+				if ($add_view_class) {
+					$classAttr.=" v-$key";
+				}
+                $output .= "<div class=\"$classAttr\"><label>".Kohana::lang('model.label-'.$key)."</label> ".$display."</div>";
                 $oddeven = !$oddeven;
             }
             if (method_exists($this, 'render_main_view_end_'.$item->object_name)) {
