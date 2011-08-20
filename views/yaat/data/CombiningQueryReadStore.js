@@ -9,11 +9,13 @@ dojo.declare("dsms.data.CombiningQueryReadStore",
     idProp : '',
     labelProp : '',
     combine : '',
+    extraQuery : '',
     
     constructor: function(/* Object */ keywordParameters){
 		this.idProp = keywordParameters.idProp || 'id';
 		this.labelProp = keywordParameters.labelProp || 'title';
 		this.combine = keywordParameters.combine;
+        this.extraQuery = keywordParameters.extraQuery;
 	},
 
 	_filterResponse: function(/* Object */ dataObject){
@@ -41,7 +43,9 @@ dojo.declare("dsms.data.CombiningQueryReadStore",
     	var pos = lookFor.indexOf(' : ');
     	if (pos>=0) {
     		lookFor = lookFor.substring(0, pos);
-    	}    	
+    	}
+        if (this.extraQuery)
+            lookFor += ' ' + this.extraQuery;
 		request.serverQuery = {q:lookFor, start:request.start, count:request.count};
 		return this.inherited("fetch", arguments);
 	}//,
